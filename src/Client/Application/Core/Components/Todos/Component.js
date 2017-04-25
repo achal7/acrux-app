@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import TodosList from './TodosList.jsx';
-import {getAll} from './Actions';
 import { Subject } from 'rxjs/Subject';
 import Rx from 'rxjs';
+import TodoComponent from './TodoComponent';
+import {getAll} from './Actions';
 
 const action$ = new Subject();
 const initState = getAll();
@@ -11,7 +11,7 @@ const reducer = (state, action) => {
   switch(action.type) {
     case 'refresh':
       return {
-        todos: [...state, {title:'one more', description:'sample..'}]
+        todos: [...state, ...action.payload, {title:'one more', description:'sample..'}]
       };
     case 'timer':
         return{
@@ -25,7 +25,7 @@ const reducer = (state, action) => {
 var source = Rx.Observable.timer(2000, 1000)
     .timeInterval()
     .pluck('interval')
-    .take(30);
+    .take(3);
 
 source.subscribe(x=> action$.next({type:'timer'}));
 
@@ -35,8 +35,8 @@ const store$ = action$
 
 const actionDispatcher = (func) => (...args) =>  
   action$.next(func(...args));
-
-const refresh = actionDispatcher((payload) => ({  
+ 
+const refresh = actionDispatcher(payload => ({  
   type: 'refresh',
   payload
 }));
@@ -54,31 +54,9 @@ const actions = {
 };
 const make = ( stream, actions ) => <TodoComponent stream={stream} actions={actions} /> 
 
-class TodoComponent extends Component {
-    state = { todos: [] }
-    constructor(props){
-        super(props);
-    }
-    componentWillMount() {
-        this.subscription = this.props.stream.subscribe(state => this.setState(state));
-    }
-    
-    componentWillUnmount(){
-        this.subscription.unsubscribe();
-    }
-    
-    render() {
-        return (
-            <div>
-                <button value="Refresh" onClick={() => {this.props.actions.refresh('force')}}>Refresh</button> 
-                <TodosList todos={this.state.todos} />
-            </div>            
-        );
-    }
-}
 
 const module = {
-    TodosList : TodosList,
+    //TodosList : TodosList,
     Todos: Todos,
     TodoComponent: TodoComponent,
     TodosWithDefault: () => make(store$, actions), //Todos(getAll())
