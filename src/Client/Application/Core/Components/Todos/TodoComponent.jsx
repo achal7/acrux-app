@@ -9,7 +9,7 @@ export default class TodoComponent extends Component {
     }
     
     componentWillMount() {
-        this.subscription = this.props.stream.subscribe(state => this.setState(state));
+        this.subscription = this.props.actions.subscribe(state => this.setState(state));
     }
     
     componentWillUnmount(){
