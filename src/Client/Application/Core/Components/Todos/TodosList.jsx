@@ -4,7 +4,7 @@ import Todo from './Todo';
 const TodosList = (props) => {
     const { todos } = {...props} || [{title:'default', description:''}];
     return (
-        <div>
+        <div className="Todos">
             <h2>Todos</h2>
             <ul>
             {
