@@ -1,35 +1,27 @@
 import React, { Component } from 'react';
 import { Subject } from 'rxjs/Subject';
 import Rx from 'rxjs';
+<<<<<<< HEAD
 import TodoListIOAdapter from './TodoListIOAdapter';
 import {getAll} from './Actions';
 import SplitPane from './SplitPane.jsx';
 import TodosCategory from './TodosCategory.jsx';
+=======
+import TodoComponent from './TodoComponent';
+import TodoAdapter from './IOAdapter';
+>>>>>>> f9efbd957eade68fe782ef8d01734ce49a565988
 
+const make = actions => <TodoComponent actions={actions} /> 
 const action$ = new Subject();
-const initState = getAll();
+const ioActions = TodoAdapter(action$);
 
-const reducer = (state, action) => {  
-  switch(action.type) {
-    case 'refresh':
-      return {
-        todos: [...state, ...action.payload, {title:'one more', description:'sample..'}]
-      };
-    case 'timer':
-        return{
-            todos: [...initState, {title:new Date().getTime(), description: 'from timer...'}]
-        };
-    default:
-      return state;
-  }
-}
-
-var source = Rx.Observable.timer(2000, 1000)
+var source = Rx.Observable.timer(2000, 300)
     .timeInterval()
     .pluck('interval')
-    .take(3);
+    .take(50);
 
 source.subscribe(x=> action$.next({type:'timer'}));
+<<<<<<< HEAD
 
 const store$ = action$  
     .startWith(initState)
@@ -105,6 +97,14 @@ const module = {
     //TodosWithDefault: RxTodos(getAll()),
     TodoComponent: TodoListIOAdapter,
     TodosWithDefault: () => make(store$, actions), //Todos(getAll())
+=======
+var d = new Date();
+var s1 = action$.subscribe( x=> console.log("A: ", d.toLocaleTimeString()));
+var s2 = action$.subscribe( x=> console.log("B: ", d.toLocaleTimeString()));
+
+const module = {
+    TodoList: () => make(ioActions)
+>>>>>>> f9efbd957eade68fe782ef8d01734ce49a565988
 };
 
 export default module;

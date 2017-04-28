@@ -21,7 +21,7 @@ const Container = () => (
         <Route path="/about" component={About}/>
         <Route path="/counter" component={Counter}/>
         <Route path="/name" component={Name}/>
-        <Route path="/todos" component={TodosModule.TodosWithDefault}/>
+        <Route path="/todos" component={TodosModule.TodoList}/>
         <Route path="/topics" component={Topics}/>
         <Route path="/weather" component={Weather}/>
         <Route path="/orders" component={OrderModuleLoader}/>
