@@ -16,7 +16,7 @@ module.exports = {
     entry:{
         Application: "./Application.js",
         OrderModule: "./OrderModule/OrderModule.js",
-        vendor: ['react', 'react-dom', 'react-router', 'react-router-dom']
+        vendor: ['react', 'react-dom', 'react-router', 'react-router-dom', 'rxjs']
     },
     output:{
         path : path.join(__dirname, "wwwroot"),
