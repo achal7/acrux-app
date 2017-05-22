@@ -2,7 +2,7 @@ import Refresh from './Actions/Refresh';
 
 const reducer = (state, action) => {  
   switch(action.type) {
-    case 'doRefresh':
+    case 'DoRefresh':
       return {
         type: 'refresh',
         todos: Refresh() };
@@ -12,7 +12,7 @@ const reducer = (state, action) => {
 const process = (stream, action ) => {  
   console.log('CHIPSET: ', (new Date()).toLocaleTimeString(), action);
   switch(action.type) {
-    case 'doRefresh':{
+    case 'DoRefresh':{
       const reply = {
         type: 'refresh',
         todos: Refresh() };
@@ -23,7 +23,7 @@ const process = (stream, action ) => {
 
 const ActionsChipset = stream => {
   const ioStream = stream  
-        .filter(x => x.type === 'doRefresh');
+        .filter(x => x.type === 'DoRefresh');
   //var log = ioStream.subscribe( x=> console.log('CHIPSET: ', (new Date()).toLocaleTimeString(), x));
   ioStream.subscribe(x=> process(stream,x));
 };

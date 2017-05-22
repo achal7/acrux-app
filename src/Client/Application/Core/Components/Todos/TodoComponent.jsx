@@ -19,7 +19,7 @@ export default class TodoComponent extends Component {
     render() {
         return (
             <div>
-                <button value="Refresh" onClick={() => {this.props.actions.refresh(this.state.todos)}}>Refresh</button> 
+                <button value="Refresh" onClick={() => {this.props.actions.DoRefresh(this.state.todos)}}>Refresh</button> 
                 <TodosList {...this.state} />
             </div>            
         );
