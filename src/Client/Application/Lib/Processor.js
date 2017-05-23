@@ -1,20 +1,6 @@
-const reducer = (state, action) => {  
-  // switch(action.type) {
-  //   case 'DoRefresh':
-  //     return {
-  //       type: 'refresh',
-  //       todos: Refresh() };
-  // }
-  
-}
-
 const process = (stream, command ) => {  
-  console.log('CHIPSET: ', (new Date()).toLocaleTimeString(), command);
-  const reply = {
-    name: command.triggerEvent,
-    payload: command.action()
-  };
-  stream.next(reply);
+  //console.log('CHIPSET: ', (new Date()).toLocaleTimeString(), command);
+  command.action(stream);
 };
 
 const processor = (stream, commands) => {

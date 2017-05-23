@@ -6,11 +6,13 @@ import Processor from './Processor';
 
 const component = commands => {
     const action$ = new Subject();
+    action$.subscribe(d => console.log('Traffic: ',d ));
+    action$.broadcast = event => action$.next(event);
     const chipset = Processor(action$, commands);
     return {
         createView: (component, ioAdapter) => React.createElement(component, {actions:ioAdapter} ),
         chipset: chipset,        
-        createIOAdapter: events => ViewAdapter(action$, events, commands)
+        createIOAdapter: (viewEvents, ioEvents)  => ViewAdapter(action$, viewEvents, ioEvents)
     }
 };
 

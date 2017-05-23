@@ -2,16 +2,13 @@ import React from 'react';
 import TodoComponent from './Views/TodoComponent';
 import Component from './../../../Lib/Component';
 import Refresh from './Actions/Refresh';
+import Events from './Events';
 
-const actions = [{
-    name: 'DoRefresh',
-    action: Refresh,
-    triggerEvent: 'refresh'
-}];
-
+const actions = [{...Events.DoRefresh, action: Refresh}];
 const component = Component(actions);
-const ioEvents = [{ name: 'refresh', triggerEvent: 'DoRefresh'}];
-const ioAdapter = component.createIOAdapter(ioEvents, ioEvents);
+const viewEvents = [Events.Refresh];
+const ioEvents = actions.map(action => action);
+const ioAdapter = component.createIOAdapter(viewEvents, ioEvents);
 
 const module = {
     TodoList: () => component.createView(TodoComponent, ioAdapter)
