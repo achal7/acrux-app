@@ -9,7 +9,7 @@ export default class TodoComponent extends Component {
     }
     
     componentWillMount() {
-        this.subscription = this.props.actions.subscribe(state => this.setState(state));
+        this.subscription = this.props.actions.subscribe(state => this.setState({todos:state.payload}));
     }
     
     componentWillUnmount(){
@@ -19,7 +19,7 @@ export default class TodoComponent extends Component {
     render() {
         return (
             <div>
-                <button value="Refresh" onClick={() => {this.props.actions[0](this.state.todos)}}>Refresh</button> 
+                <button value="Refresh" onClick={() => {this.props.actions[0](this.state)}}>Refresh</button> 
                 <TodosList {...this.state} />
             </div>            
         );

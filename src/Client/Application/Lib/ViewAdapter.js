@@ -1,6 +1,6 @@
-const makeCommand = command => payload => ({  
-    type: command,
-    payload
+const makeCommand = event => payload => ({  
+    name: event.triggerEvent,
+    payload: payload
 });
 
 const initState = [];
@@ -12,8 +12,8 @@ const adapter = ( stream, events, commands ) => {
     const actionDispatcher = streamActionDispatcher(stream);
     const ioStream = stream  
                         .startWith(initState)
-                        .filter(event => Object.keys(commands).every(key => commands[key] === event.type));
-        
+                        .filter(command => events.find( allowed => allowed.name === command.name));
+    //ioStream.subscribe(d => console.log('IO Adapter:', d));
     var ioAdapter = {};
     Object.keys(events).map(key => ioAdapter[key] = actionDispatcher(makeCommand(events[key])));
     ioAdapter.subscribe = func => ioStream.subscribe(func);

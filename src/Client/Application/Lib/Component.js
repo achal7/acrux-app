@@ -2,20 +2,15 @@ import React from 'react';
 import { Subject } from 'rxjs/Subject';
 import Rx from 'rxjs';
 import ViewAdapter from './ViewAdapter';
-import ActionsChipset from './ActionsChipset';
-
-//const commands = ['refresh'];
+import Processor from './Processor';
 
 const component = commands => {
-    
     const action$ = new Subject();
-    const events = ['DoRefresh'];
-    const ioActions = ViewAdapter(action$, events, ['refresh']);
-    const chipset = ActionsChipset(action$, commands);
+    const chipset = Processor(action$, commands);
     return {
-        createView: component => React.createElement(component, {actions:ioActions} ),
-        chipset: chipset,
-        ioAdapter: ioActions
+        createView: (component, ioAdapter) => React.createElement(component, {actions:ioAdapter} ),
+        chipset: chipset,        
+        createIOAdapter: events => ViewAdapter(action$, events, commands)
     }
 };
 
