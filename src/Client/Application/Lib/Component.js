@@ -6,7 +6,7 @@ import Chipset from './Chipset';
 
 const component = commands => {
     const action$ = new Subject();
-    action$.subscribe(d => console.log('Traffic: ',d ));
+    //action$.subscribe(d => console.log('Traffic: ',d ));
     const chipset = Chipset(action$, commands);    
     return {
         createIOAdapter: (viewEvents, ioEvents)  => DisplayAdapter(action$, viewEvents, ioEvents)

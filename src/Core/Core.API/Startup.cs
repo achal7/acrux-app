@@ -23,6 +23,7 @@ namespace Core.API
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvc();
         }
 
@@ -40,6 +41,9 @@ namespace Core.API
             // {
             //     app.UseExceptionHandler("/Home/Error");
             // }
+            app.UseCors(builder =>
+                builder.WithOrigins("http://localhost:8080")
+                    .AllowAnyHeader());
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMvc(routes =>
