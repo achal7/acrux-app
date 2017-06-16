@@ -57,20 +57,20 @@ export default async stream => {
 //         result.text().done(text => console.log(text))
 //       );
 
-    let req = axios.create({
-        baseURL: 'http://localhost:5000',
-        headers:{
-            'Accept': 'application/json',
-            'crossDomain': true,
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin':'*',}
-    });
-    req.get('/api/data')
-        .then(response => {
-            console.log(response);
-        console.log(response.data);
-        console.log(response.status);
-    });  
+    // let req = axios.create({
+    //     baseURL: 'http://localhost:5000',
+    //     headers:{
+    //         'Accept': 'application/json',
+    //         'crossDomain': true,
+    //         'Content-Type': 'application/json',
+    //         'Access-Control-Allow-Origin':'*',}
+    // });
+    // req.get('/api/data')
+    //     .then(response => {
+    //         console.log(response);
+    //     console.log(response.data);
+    //     console.log(response.status);
+    // });  
     stream.next({...Messages.Refresh, 
          payload: [...getAll(), {title:(new Date().toLocaleTimeString()), description:'sample..'}]});
 };
